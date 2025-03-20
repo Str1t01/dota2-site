@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dota 2 Heroes Encyclopedia</title>
+    <style>
+        /* Общие стили */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #1a1a1a;
+            color: #ffffff;
+        }
+
+        /* Шапка */
+        .header {
+            background-color: #0d0d0d;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 3px solid #ff5500;
+        }
+
+        /* Навигация */
+        .nav-menu {
+            background-color: #262626;
+            padding: 15px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-menu a {
+            color: #ff5500;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover {
+            color: #ff8c00;
+        }
+
+        /* Сетка героев */
+        .heroes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero-card {
+            background: #333;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .hero-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .hero-info {
+            padding: 15px;
+        }
+
+        .hero-name {
+            color: #ff5500;
+            margin-bottom: 10px;
+        }
+
+        /* Фильтры */
+        .filters {
+            text-align: center;
+            padding: 20px;
+            background: #262626;
+        }
+
+        .filter-btn {
+            background: #ff5500;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>Энциклопедия героев Dota 2</h1>
+        <p>Все 124 героя с подробным описанием</p>
+    </header>
+
+    <nav class="nav-menu">
+        <a href="#heroes">Все герои</a>
+        <a href="#strength">Сила</a>
+        <a href="#agility">Ловкость</a>
+        <a href="#intelligence">Интеллект</a>
+    </nav>
+
+    <div class="filters">
+        <button class="filter-btn" onclick="filterHeroes('all')">Все</button>
+        <button class="filter-btn" onclick="filterHeroes('strength')">Сила</button>
+        <button class="filter-btn" onclick="filterHeroes('agility')">Ловкость</button>
+        <button class="filter-btn" onclick="filterHeroes('intelligence')">Интеллект</button>
+    </div>
+
+    <div id="heroes" class="heroes-grid">
+        <!-- Герои будут добавлены через JavaScript -->
+    </div>
+
+    <script>
+        // Массив героев (пример)
+        const heroes = [
+            {
+                name: "Axe",
+                type: "strength",
+                image: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/axe.png",
+                description: "Неумолимый воин, специализирующийся на контроле толпы"
+            },
+            {
+                name: "Juggernaut",
+                type: "agility",
+                image: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/juggernaut.png",
+                description: "Смертоносный мастер клинка с магическим вращением"
+            },
+            {
+                name: "Invoker",
+                type: "intelligence",
+                image: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/invoker.png",
+                description: "Маг, владеющий 10 различными заклинаниями"
+            }
+            // Добавьте остальных героев по аналогии
+        ];
+
+        // Функция отображения героев
+        function renderHeroes(filter = 'all') {
+            const container = document.getElementById('heroes');
+            container.innerHTML = '';
+
+            heroes.forEach(hero => {
+                if(filter === 'all' || hero.type === filter) {
+                    const card = document.createElement('div');
+                    card.className = 'hero-card';
+                    card.innerHTML = `
+                        <img src="${hero.image}" class="hero-image" alt="${hero.name}">
+                        <div class="hero-info">
+                            <h3 class="hero-name">${hero.name}</h3>
+                            <p>${hero.description}</p>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                }
+            });
+        }
+
+        // Функция фильтрации
+        function filterHeroes(type) {
+            renderHeroes(type);
+        }
+
+        // Первоначальная загрузка
+        renderHeroes();
+    </script>
+</body>
+</html>
